@@ -1,16 +1,10 @@
 const request = require('request-promise');
 
 const wishlist = [
-    'Mecanico   ',
-    'Mecânico   '
-]
-
-const spotlights = [
-    'G610',
-    'G810',
-    'G910',
-    'G513',
-    'RGB'
+    { regex: /(?=.*mouse)(?=.*4000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
+    { regex: /(?=.*mouse)(?=.*6000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
+    { regex: /(?=.*mouse)(?=.*9000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
+    { regex: /(?=.*mouse)(?=.*12000)/g, productName: 'Mouse', spotlights: ['HyperX'] }
 ]
 
 var lastWishlistCount = 0;
@@ -37,9 +31,15 @@ async function getOffers() {
         const product = products[keys[i]];
 
         for (let j in wishlist) {
-            if (product.produto.toLowerCase().includes(wishlist[j].trim().toLowerCase()) && product.quantidade != 0) {
-                var isSpotlight = false;
+            let regex = wishlist[j].regex;
+
+            if (regex.test(product.produto.toLowerCase()) && product.quantidade != 0) {
                 wishlistCount++;
+
+                let spotlights = wishlist[j].spotlights;
+                let productName = wishlist[j].productName;
+
+                var isSpotlight = false;
 
                 for(let k in spotlights) {
                     if (product.produto.toLowerCase().includes(spotlights[k].toLowerCase())) {
@@ -50,11 +50,12 @@ async function getOffers() {
 
                 if(isSpotlight) {
                     spotlightCount++;
-                    console.log(`\x1b[45m\x1b[4m${wishlist[j]}\x1b[45m\x1b[4m - ${product.produto} - \x1b[1m\x1b[45m\x1b[4mR$ ${product.vlr_oferta}\x1b[45m\x1b[0m`);
+
+                    console.log(`\x1b[45m\x1b[4m${productName}\x1b[45m\x1b[4m - \x1b[45m${product.produto} - \x1b[1m\x1b[45m\x1b[4mR$ ${product.vlr_oferta}\x1b[45m\x1b[0m`);
                     console.log(`\x1b[43mhttps://www.kabum.com.br/produto/${product.codigo}\x1b[0m`);
                 } else {
                     
-                    console.log(`\x1b[0m${wishlist[j]}\x1b[0m - ${product.produto} - \x1b[42mR$ ${product.vlr_oferta}\x1b[0m`);
+                    console.log(`\x1b[0m${productName}\x1b[0m - ${product.produto} - \x1b[42mR$ ${product.vlr_oferta}\x1b[0m`);
                 }
             }
         }
