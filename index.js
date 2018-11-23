@@ -3,9 +3,12 @@ const request = require('request-promise');
 const wishlist = [
     'WaterCooler',
     'Mecanico',
-    'Corsair',
-    'Logitech',
     'Mecânico'
+]
+
+const spotlights = [
+    'Corsair',
+    'Logitech'
 ]
 
 async function getOffers() {
@@ -26,11 +29,18 @@ async function getOffers() {
         const product = products[keys[i]];
 
         for (let j in wishlist) {
-            if (product.produto.toLowerCase().includes(wishlist[j].toLowerCase())) {
-                console.log(`\x1b[41m${wishlist[j]}\x1b[0m - ${product.produto} - \x1b[41mR$ ${product.vlr_oferta}\x1b[0m`);
+            if (product.produto.toLowerCase().includes(wishlist[j].toLowerCase()) && product.quantidade != 0) {
+
+                for(let k in spotlights) {
+                    if (product.produto.toLowerCase().includes(spotlights[k].toLowerCase())) {
+                        console.log(`\x1b[45m\x1b[4m${wishlist[j]}\x1b[45m\x1b[4m - ${product.produto} - \x1b[1m\x1b[45m\x1b[4mR$ ${product.vlr_oferta}\x1b[45m\x1b[0m`);
+                        break;
+                    }
+                    
+                    console.log(`\x1b[0m${wishlist[j]}\x1b[0m - ${product.produto} - \x1b[42mR$ ${product.vlr_oferta}\x1b[0m`);
+                }
             }
         }
-
     }
 }
 
