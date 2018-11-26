@@ -1,10 +1,10 @@
 const request = require('request-promise');
 
 const wishlist = [
-    { regex: /(?=.*mouse)(?=.*4000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
-    { regex: /(?=.*mouse)(?=.*6000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
-    { regex: /(?=.*mouse)(?=.*9000)/g, productName: 'Mouse', spotlights: ['HyperX'] },
-    { regex: /(?=.*mouse)(?=.*12000)/g, productName: 'Mouse', spotlights: ['HyperX'] }
+    { regex: /(?=.*water)(?=.*cooler)/g , productName: 'WaterCooler', spotlights: ['Corsair'] },
+    { regex: /(?=.*notebook)/g, productName: 'Notebook', spotlights: ['i3', 'i5'] },
+    { regex: /(?=.*ps4)/g, productName: 'PS4', spotlights: ['Slim'] },
+    { regex: /(?=.*playstation)/g, productName: 'PS4', spotlights: ['Slim'] }
 ]
 
 var lastWishlistCount = 0;
@@ -13,11 +13,11 @@ var lastSpotlightCount = 0;
 async function getOffers() {
     process.stdout.write('\033c');
     const response = await request({
-        url: 'https://blackfriday.kabum.com.br/data.json?campanha=blackfriday',
+        url: 'https://cybermonday.kabum.com.br/data.json?campanha=cybermonday',
         method: 'GET',
         json: true,
         headers: {
-            referrer: 'blackfriday.kabum.com.br'
+            referrer: 'https://cybermonday.kabum.com.br/'
         }
     });
 
