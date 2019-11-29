@@ -1,11 +1,6 @@
 const request = require("request-promise")
 
-const wishlist = [
-	{ regex: /(?=.*water)(?=.*cooler)/g, productName: "WaterCooler", spotlights: ["Corsair"] },
-	{ regex: /(?=.*notebook)/g, productName: "Notebook", spotlights: ["i3", "i5"] },
-	{ regex: /(?=.*ps4)/g, productName: "PS4", spotlights: ["Slim"] },
-	{ regex: /(?=.*playstation)/g, productName: "PS4", spotlights: ["Slim"] }
-]
+const wishlist = [{ regex: /(?=.*bluetooth)/g, productName: "Bluetooth", spotlights: ["teclado"] }]
 
 var lastWishlistCount = 0
 var lastSpotlightCount = 0
@@ -14,7 +9,7 @@ async function getOffers() {
 	process.stdout.write("\033c")
 	const response = await request({
 		url:
-			"https://b2lq2jmc06.execute-api.us-east-1.amazonaws.com/PROD/ofertas?campanha=blackfriday&app=1&limite=60&pagina=1",
+			"https://b2lq2jmc06.execute-api.us-east-1.amazonaws.com/PROD/ofertas?campanha=blackfriday&app=1&limite=5000&pagina=1",
 		method: "GET",
 		json: true,
 		headers: {
